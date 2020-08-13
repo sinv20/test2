@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.shin.board.d">
+ 	<select id = "listBoard" resultType = "TbDTO">
+      select * from test_board order by num desc
+   </select>
+   <select id="getBoard" parameterType="int" resultType = "tbDTO">
+   		select * from test_board where num = #{num}
+   </select>
+   <insert id="insertBoard" parameterType="TbDTO">
+   		insert into test_board values(test_board_seq.nextval,#{writer},#{email},#{subject},
+   		#{passwd},sysdate,0,#{content},#{ip},#{filename},#{filesize})
+   </insert>
+   <delete id="deleteBoard" parameterType="int">
+		delete from test_board where num = #{num}
+	</delete>
+	<update id="updateBoard" parameterType="TbDTO">
+		update board set writer = #{writer}, email = #{email},
+		subject = #{subject}, content = #{content} where num = #{num}
+	</update>
+	<update id="readcountBoard" parameterType="int">
+       update test_board set readcount = readcount + 1 where num = #{num}
+    </update>
+	
+ </mapper>
